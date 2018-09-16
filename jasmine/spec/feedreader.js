@@ -30,7 +30,7 @@ $(function() {
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
-         */it('all of them have urls defined and not empty!', function() {
+         */it('all their urls are defined and not empty!', function() {
             var allFeeds = [
                 {
                     name: 'Udacity Blog',
@@ -60,7 +60,7 @@ $(function() {
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
-         */it('all of them have names defined and not empty!', function() {
+         */it('all their names are defined and not empty!', function() {
             var allFeeds = [
                 {
                     name: 'Udacity Blog',
@@ -105,7 +105,6 @@ $(function() {
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
-
           *I found the following code at discussions.udacity.com https://discussions.udacity.com/t/menu-visibility-test/187928/6
           */    it('changes visibility when the menu icon is clicked', function() {
                     $(".menu-icon-link").click();
@@ -114,15 +113,21 @@ $(function() {
                     expect(document.body.classList).toContain('menu-hidden');
                 })
            });
-    /* TODO: Write a new test suite named "Initial Entries" */
+        
+        /* TODO: Write a new test suite named "Initial Entries" */
+        /*I found the following code at discussions.udacity.com: https://discussions.udacity.com/t/feed-reader-testing-initial-entries-suite/760528/2*/
+        describe('Initial entries', function(){
+            let entries = document.getElementsByClassName('entry-link').length;
+            beforeEach(function (done){
+                loadFeed(0);
+                done();
+            });
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-
+            it('has at least one entry in the feed', function (done){
+                expect(entries.length).not.toBe(0);
+                done();
+            }); 
+        });
     /* TODO: Write a new test suite named "New Feed Selection" */
 
         /* TODO: Write a test that ensures when a new feed is loaded
