@@ -123,7 +123,7 @@ $(function() {
                 done();
             });
 
-            it('has at least one entry in the feed', function (done){
+            it('have at least one entry in the feed', function (done){
                 expect(entries.length).not.toBe(0);
                 done();
             }); 
@@ -136,9 +136,9 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 
-        describe(“New Feed Selection”, function() {
-            //var oldFeed,
-            //newFeed;
+        /*describe(“New Feed Selection”, function() {
+            var oldFeed,
+            newFeed;
             beforeEach(function(done) {
                 loadFeed(0, function() {
                     oldFeed = $('.feed').html();
@@ -154,6 +154,53 @@ $(function() {
                 expect($(oldFeed).not.toBe(newFeed));
                 done();
             });
+        });*/
+
+        describe('New Feed Selection', function() {
+
+        /*At least 2 feeds exist.
+
+        *We load them with done() callback function and store the list of links elements of the first one in firstFeed.*/
+
+            var prevURL; // variable for prevURL
+
+            var newURL; // variable for newURL
+
+            beforeEach(function() {
+
+                const feed = document.querySelector('.feed');
+
+                loadFeed(0, function() {
+
+                    // feed 0 done loading
+
+                    prevURL = document.querySelector('.entry-link').innerHTML;
+
+                    loadFeed(1, function() {
+
+                        // feed 1 done loading
+
+                        newURL = document.querySelector('.entry-link').innerHTML;
+
+                        // all variables initialized, can begin tests
+
+                        done();
+
+                    });
+
+                });
+
+            });
+
+            /*We have 2 feeds loaded, we check that the html content of each feed are different*/
+
+            it('feed section has been loaded and is different', function () {
+
+                // test that content has changed
+
+                expect(prevURL !== newURL).toBe(false);
+            });
+
         });
 
 }());
