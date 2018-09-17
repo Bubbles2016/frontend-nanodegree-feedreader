@@ -130,77 +130,33 @@ $(function() {
         });
         
         /* TODO: Write a new test suite named "New Feed Selection" */
+        // I used the following link from Knowledge: https://knowledge.udacity.com/questions/7939, to write the following suite. 
+        describe('New Feed Selection', function() {
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-
-        /*describe(“New Feed Selection”, function() {
-            var oldFeed,
-            newFeed;
-            beforeEach(function(done) {
-                loadFeed(0, function() {
-                    oldFeed = $('.feed').html();
-                    done();
-                });
-            });
-
-            it('should change the content', function(done) {
-                loadFeed(1, function() {
-                    newFeed = $('.feed').html();
-                    done();
-                });
-                expect($(oldFeed).not.toBe(newFeed));
-                done();
-            });
-        });*/
-
-        describe('New Feed Selection', function() {
-
-        /*At least 2 feeds exist.
-
-        *We load them with done() callback function and store the list of links elements of the first one in firstFeed.*/
-
-            var prevURL; // variable for prevURL
-
-            var newURL; // variable for newURL
-
+            var oldUrl;
+            var newUrl;
             beforeEach(function() {
-
-                const feed = document.querySelector('.feed');
-
+                //var feed = document.querySelector('.feed');
                 loadFeed(0, function() {
-
-                    // feed 0 done loading
-
-                    prevURL = document.querySelector('.entry-link').innerHTML;
-
-                    loadFeed(1, function() {
-
-                        // feed 1 done loading
-
+                    oldUrl = document.querySelector('.entry-link').innerHTML;
+                    loadFeed(1,function() {
                         newURL = document.querySelector('.entry-link').innerHTML;
-
-                        // all variables initialized, can begin tests
-
                         done();
+                    })
+                })
+            })
 
-                    });
-
-                });
-
-            });
-
-            /*We have 2 feeds loaded, we check that the html content of each feed are different*/
-
-            it('feed section has been loaded and is different', function () {
-
-                // test that content has changed
-
-                expect(prevURL !== newURL).toBe(false);
-            });
-
+        /* TODO: Write a test that ensures when a new feed is loaded
+         * by the loadFeed function that the content actually changes.
+         * Remember, loadFeed() is asynchronous.
+         */
+        it('has been loaded. The content has changed.', function() {
+                expect(oldUrl !== newUrl).toBe(false);
+            })
         });
 
 }());
