@@ -23,6 +23,8 @@ $(function() {
          */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
+            // I found a hint on how to test if allFeeds is an array on slack
+            expect(Array.isArray(allFeeds)).toBe(true);
             expect(allFeeds.length).not.toBe(0);
         });
 
@@ -105,7 +107,7 @@ $(function() {
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
-          *I found the following code at discussions.udacity.com https://discussions.udacity.com/t/menu-visibility-test/187928/6
+          *I found the following hints to write the code below at discussions.udacity.com https://discussions.udacity.com/t/menu-visibility-test/187928/6
           */    it('changes visibility when the menu icon is clicked', function() {
                     $(".menu-icon-link").click();
                     expect(document.body.classList).not.toContain('menu-hidden');
@@ -115,7 +117,7 @@ $(function() {
            });
         
         /* TODO: Write a new test suite named "Initial Entries" */
-        /*I found the following code at discussions.udacity.com: https://discussions.udacity.com/t/feed-reader-testing-initial-entries-suite/760528/2*/
+        /*I found the following hints at discussions.udacity.com: https://discussions.udacity.com/t/feed-reader-testing-initial-entries-suite/760528/2*/
         describe('Initial entries', function(){
             let entries = document.getElementsByClassName('entry-link').length;
             beforeEach(function (done){
@@ -130,6 +132,7 @@ $(function() {
         });
         
         /* TODO: Write a new test suite named "New Feed Selection" */
+        
         // I used the following link from Knowledge: https://knowledge.udacity.com/questions/7939, to write the following suite. 
         describe('New Feed Selection', function() {
 
@@ -140,11 +143,10 @@ $(function() {
             var oldUrl;
             var newUrl;
             beforeEach(function() {
-                //var feed = document.querySelector('.feed');
                 loadFeed(0, function() {
-                    oldUrl = document.querySelector('.entry-link').innerHTML;
+                    oldUrl = document.querySelector('.entry-link').html();
                     loadFeed(1,function() {
-                        newURL = document.querySelector('.entry-link').innerHTML;
+                        newURL = document.querySelector('.entry-link').html();
                         done();
                     })
                 })
