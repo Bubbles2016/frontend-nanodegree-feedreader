@@ -33,24 +33,6 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */it('all their urls are defined and not empty!', function() {
-            var allFeeds = [
-                {
-                    name: 'Udacity Blog',
-                    url: 'http://blog.udacity.com/feed'
-                }, 
-                {
-                    name: 'CSS Tricks',
-                    url: 'http://feeds.feedburner.com/CssTricks'
-                }, 
-                {
-                    name: 'HTML5 Rocks',
-                    url: 'http://feeds.feedburner.com/html5rocks'
-                }, 
-                {
-                    name: 'Linear Digressions',
-                    url: 'http://feeds.feedburner.com/udacity-linear-digressions'
-                }
-            ];
             for (let feed of allFeeds) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
@@ -63,24 +45,6 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */it('all their names are defined and not empty!', function() {
-            var allFeeds = [
-                {
-                    name: 'Udacity Blog',
-                    url: 'http://blog.udacity.com/feed'
-                }, 
-                {
-                    name: 'CSS Tricks',
-                    url: 'http://feeds.feedburner.com/CssTricks'
-                }, 
-                {
-                    name: 'HTML5 Rocks',
-                    url: 'http://feeds.feedburner.com/html5rocks'
-                }, 
-                {
-                    name: 'Linear Digressions',
-                    url: 'http://feeds.feedburner.com/udacity-linear-digressions'
-                }
-            ];
             for (let feed of allFeeds) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name.length).not.toBe(0);
@@ -96,11 +60,12 @@ $(function() {
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
-         */describe('The menu', function() {
+         */
+        describe('The menu', function() {
             
-                it('is hidden by default', function() {
-                    expect($('body').hasClass('menu-hidden')).toBe(true);
-                });
+            it('is hidden by default', function() {
+                expect($('body').hasClass('menu-hidden')).toBe(true);
+            });
          
 
          /* TODO: Write a test that ensures the menu changes
@@ -108,26 +73,28 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           *I found the following hints to write the code below at discussions.udacity.com https://discussions.udacity.com/t/menu-visibility-test/187928/6
-          */    it('changes visibility when the menu icon is clicked', function() {
-                    $(".menu-icon-link").click();
-                    expect(document.body.classList).not.toContain('menu-hidden');
-                    $(".menu-icon-link").click();
-                    expect(document.body.classList).toContain('menu-hidden');
-                })
-           });
+          */
+            it('changes visibility when the menu icon is clicked', function() {
+                $(".menu-icon-link").click();
+                expect(document.body.classList).not.toContain('menu-hidden');
+                $(".menu-icon-link").click();
+                expect(document.body.classList).toContain('menu-hidden');
+            })
+        });
         
         /* TODO: Write a new test suite named "Initial Entries" */
         /*I found the following hints at discussions.udacity.com: https://discussions.udacity.com/t/feed-reader-testing-initial-entries-suite/760528/2*/
         describe('Initial entries', function(){
             let entries = document.getElementsByClassName('entry-link').length;
             beforeEach(function (done){
-                loadFeed(0);
+                loadFeed(0, done);
                 done();
             });
 
-            it('have at least one entry in the feed', function (done){
-                expect(entries.length).not.toBe(0);
-                done();
+            it('feed reader has at least one entry', function (){
+                //I'm using jQuery below to select the feed entry
+                let entry = $(".feed .entry").html;
+                expect(entry.length).not.toBe(0);
             }); 
         });
         
@@ -144,9 +111,9 @@ $(function() {
             var newUrl;
             beforeEach(function() {
                 loadFeed(0, function() {
-                    oldUrl = document.querySelector('.entry-link').html();
+                    oldUrl = $(".feed").html();
                     loadFeed(1,function() {
-                        newURL = document.querySelector('.entry-link').html();
+                        newURL = $(".feed").html();
                         done();
                     })
                 })
@@ -156,7 +123,7 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        it('has been loaded. The content has changed.', function() {
+            it('has been loaded. The content has changed.', function() {
                 expect(oldUrl !== newUrl).toBe(false);
             })
         });
