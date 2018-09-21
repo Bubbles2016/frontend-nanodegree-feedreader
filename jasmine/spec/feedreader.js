@@ -28,23 +28,15 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */it('all their urls are defined and not empty!', function() {
+        it('all their urls are defined and not empty!', function() {
             for (let feed of allFeeds) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
             }
             
-         });
+        });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */it('all their names are defined and not empty!', function() {
+         it('all their names are defined and not empty!', function() {
             for (let feed of allFeeds) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name.length).not.toBe(0);
@@ -67,12 +59,7 @@ $(function() {
                 expect($('body').hasClass('menu-hidden')).toBe(true);
             });
          
-
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          *I found the following hints to write the code below at discussions.udacity.com https://discussions.udacity.com/t/menu-visibility-test/187928/6
+          /*I found the following hints to write the code below at discussions.udacity.com https://discussions.udacity.com/t/menu-visibility-test/187928/6
           */
             it('changes visibility when the menu icon is clicked', function() {
                 $(".menu-icon-link").click();
@@ -82,18 +69,17 @@ $(function() {
             })
         });
         
-        /* TODO: Write a new test suite named "Initial Entries" */
+        
         /*I found the following hints at discussions.udacity.com: https://discussions.udacity.com/t/feed-reader-testing-initial-entries-suite/760528/2*/
         describe('Initial entries', function(){
             let entries = document.getElementsByClassName('entry-link').length;
             beforeEach(function (done){
                 loadFeed(0, done);
-                done();
             });
 
             it('feed reader has at least one entry', function (){
                 //I'm using jQuery below to select the feed entry
-                let entry = $(".feed .entry").html;
+                var entry = document.querySelector(".feed .entry");
                 expect(entry.length).not.toBe(0);
             }); 
         });
@@ -103,29 +89,20 @@ $(function() {
         // I used the following link from Knowledge: https://knowledge.udacity.com/questions/7939, to write the following suite. 
         describe('New Feed Selection', function() {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
             var oldUrl;
             var newUrl;
             beforeEach(function() {
-                loadFeed(0, function() {
-                    oldUrl = $(".feed").html();
-                    loadFeed(1,function() {
-                        newURL = $(".feed").html();
-                        done();
-                    })
-                })
-            })
+                loadFeed(0, function(done) {
+                    oldUrl = $('.feed').html();
+                    loadFeed(1,function(done) {
+                    });
+                });
+            });
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
             it('has been loaded. The content has changed.', function() {
-                expect(oldUrl !== newUrl).toBe(false);
-            })
+                newUrl = $('.feed').html();
+                expect(oldUrl).not.toBe(newUrl);
+            });
         });
 
 }());
